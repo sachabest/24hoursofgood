@@ -40,10 +40,20 @@ public class DataManager : MonoBehaviour {
                     line = line.Trim();
                     if (!line.Contains("http"))
                         continue;
-                    GameObject prefab = (GameObject)Instantiate(Resources.Load("FallingSitePrefab"));
+                    GameObject prefab;
+                    int random = Random.Range(0, 100);
+                    if (random < 30) {
+                        prefab = (GameObject)Instantiate(Resources.Load("RedDroid"));
+                    }
+                    else if (random < 60) {
+                        prefab = (GameObject)Instantiate(Resources.Load("YellowDroid"));
+                    }
+                    else {
+                        prefab = (GameObject)Instantiate(Resources.Load("FallingSitePrefab"));
+                    }
                     FallingSite toAdd = prefab.GetComponent<FallingSite>();
                     toAdd.siteURL = line;
-                    toAdd.value = Random.Range(0, 100);
+                    toAdd.value = random;
                     prefab.rigidbody2D.isKinematic = true;
                     prefab.rigidbody2D.gravityScale = 0.0f;
                     prefab.transform.position = new Vector2(0, 30);
