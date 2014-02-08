@@ -25,6 +25,7 @@ public class SiteDropper : MonoBehaviour {
                 androidDude.transform.position = new Vector2(difference, androidDude.transform.position.y);
                 androidDude.gameObject.rigidbody2D.isKinematic = false;
                 androidDude.rigidbody2D.gravityScale = Random.Range(0.3f, 0.8f);
+                androidDude.dropped = true;
                 yield return new WaitForSeconds(3.0f);
             }
         }

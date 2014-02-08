@@ -178,6 +178,7 @@
      <Compile Include="Assets\SiteCollector.cs" />
      <Compile Include="Assets\SiteDropper.cs" />
      <Compile Include="Assets\UserLoginPrompter.cs" />
+     <Compile Include="Assets\timer.cs" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Depth Cutout.shader" />
      <None Include="Assets\NGUI\ReadMe - 3.0.9 f5.txt" />
      <None Include="Assets\NGUI\Examples\Models\Orc\Orc Skin.shader" />

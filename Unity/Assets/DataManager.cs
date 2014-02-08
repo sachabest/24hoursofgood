@@ -12,6 +12,7 @@ public class DataManager : MonoBehaviour {
     private float downloadProgress;
     public bool downloading;
     public SiteDropper dropper;
+    public SiteCollector collector;
 	// Use this for initialization
 	void Start () {
         decodeTXT("Assets/history.txt");
@@ -42,6 +43,7 @@ public class DataManager : MonoBehaviour {
                     toAdd.value = Random.Range(0, 100);
                     prefab.rigidbody2D.isKinematic = true;
                     prefab.transform.position = new Vector2(0, 30);
+                    toAdd.collector = collector;
                     downloadedSites.Add(toAdd);
                     count++;
                 }
