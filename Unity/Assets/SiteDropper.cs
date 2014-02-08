@@ -16,7 +16,7 @@ public class SiteDropper : MonoBehaviour {
             float difference = (float) Random.Range(-1.0f, 1.0f) * DISTANCE_MAX; ;
             androidDude.transform.position = new Vector2(difference, androidDude.transform.position.y);
             androidDude.gameObject.rigidbody2D.isKinematic = false;
-            androidDude.rigidbody2D.gravityScale = Random.Range(0.3f, 0.8f) * 1 / 10;
+            androidDude.rigidbody2D.gravityScale = Random.Range(0.3f, 0.8f);
             Debug.Log(androidDude.rigidbody2D.gravityScale);
             Debug.Log("Difference " + difference);
         }
