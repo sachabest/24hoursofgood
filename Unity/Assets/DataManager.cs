@@ -5,7 +5,7 @@ using System.IO;
 public class DataManager : MonoBehaviour {
 
     public const int MASS_MODIFIER = 2;
-    public const int MAX_ENTRIES = 10;
+    public const int MAX_ENTRIES = 50;
     public const string websiteToCheck = "http://google.com";
     public JSONObject downloadedJSON;
     public List<FallingSite> downloadedSites;
@@ -40,7 +40,7 @@ public class DataManager : MonoBehaviour {
                     FallingSite toAdd = prefab.GetComponent<FallingSite>();
                     toAdd.siteURL = line;
                     toAdd.value = Random.Range(0, 100);
-                    prefab.rigidbody2D.isKinematic = false;
+                    prefab.rigidbody2D.isKinematic = true;
                     prefab.transform.position = new Vector2(0, 30);
                     downloadedSites.Add(toAdd);
                     count++;
@@ -48,7 +48,9 @@ public class DataManager : MonoBehaviour {
             }
         }
         stream.Close();
-        dropper.dropFoold();
+        dropper.shouldDrop = true;
+        Debug.Log(dropper.shouldDrop);
+        dropper.StartCoroutine("Drop");
     }
     public void decodeJSON(string url)
     {

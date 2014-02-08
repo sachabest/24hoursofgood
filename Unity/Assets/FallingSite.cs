@@ -29,8 +29,8 @@ public class FallingSite : MonoBehaviour {
             if (other != null)
             {
                 other.transform.parent = this.transform;
-                this.rigidbody2D.Sleep();
-                other.rigidbody2D.Sleep();
+                this.rigidbody2D.isKinematic = true;
+                this.rigidbody2D.isKinematic = true;
                 //site.transform.rigidbody2D.Sleep();
                 /* Need to also update the collider on this object to include the bounds of
                  * the recently caught site */
