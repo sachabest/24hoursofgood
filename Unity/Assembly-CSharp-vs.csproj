@@ -176,6 +176,7 @@
      <Compile Include="Assets\NGUI\Scripts\UI\UITooltip.cs" />
      <Compile Include="Assets\NGUI\Scripts\UI\UIViewport.cs" />
      <Compile Include="Assets\SiteCollector.cs" />
+     <Compile Include="Assets\SiteDropper.cs" />
      <Compile Include="Assets\UserLoginPrompter.cs" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Depth Cutout.shader" />
      <None Include="Assets\NGUI\ReadMe - 3.0.9 f5.txt" />

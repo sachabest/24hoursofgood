@@ -4,9 +4,10 @@ using System.IO;
 
 public class DataManager : MonoBehaviour {
 
+    public const int MASS_MODIFIER = 100;
     public const string websiteToCheck = "http://google.com";
     public JSONObject downloadedJSON;
-    private List<FallingSite> downloadedSites;
+    public List<FallingSite> downloadedSites;
     private float downloadProgress;
     public bool downloading;
 	// Use this for initialization
@@ -31,6 +32,10 @@ public class DataManager : MonoBehaviour {
                     line = split[1];
                     line = line.Trim();
                     FallingSite toAdd = (FallingSite) Instantiate(Resources.Load("FallingSitePrefab"));
+                    toAdd.siteURL = line;
+                    toAdd.value = Random.Range(0, 100);
+                    toAdd.mass = MASS_MODIFIER + Random.Range(0, 50);
+                    toAdd.transform.position = new Vector2(0, 200);
                     downloadedSites.Add(toAdd);
                 }
             }

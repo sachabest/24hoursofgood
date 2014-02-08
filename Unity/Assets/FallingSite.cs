@@ -12,7 +12,11 @@ public class FallingSite : MonoBehaviour {
 	void Start () {
 	    
 	}
-	
+    void changeMass(float newMass)
+    {
+        mass = newMass;
+        rigidbody.mass = newMass;
+    }
 	// Update is called once per frame
 	void Update () {
 	
