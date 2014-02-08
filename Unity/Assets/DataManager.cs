@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.IO;
 
 public class DataManager : MonoBehaviour {
 
@@ -8,14 +9,32 @@ public class DataManager : MonoBehaviour {
     private List<FallingSite> downloadedSites;
     private float downloadProgress;
     public bool downloading;
-
 	// Use this for initialization
 	void Start () {
-	    
+        decodeTXT("Assets/history.txt");
 	}
     void startHTTPCheck()
     {
 
+    }
+    public void decodeTXT(string filename)
+    {
+        StreamReader stream = new StreamReader(filename);
+        string line;
+        while ((line = stream.ReadLine()) != null)
+        {
+            if (line.Contains("URL"))
+            {
+                string[] split = line.Split(':');
+                if (split.Length > 1)
+                {
+                    line = split[1];
+                    line = line.Trim();
+                    FallingSite toAdd = (FallingSite) Instantiate(Resources.Load("FallingSitePrefab"));
+                    downloadedSites.Add(toAdd);
+                }
+            }
+        }
     }
     public void decodeJSON(string url)
     {
@@ -28,14 +47,14 @@ public class DataManager : MonoBehaviour {
         downloading = false;
         string json = System.Text.Encoding.Default.GetString(jsonPage.bytes);
         downloadedJSON = new JSONObject(json);
-        
+        /*
         foreach (JSONObject jsonSite in (downloadedJSON.list)) {
             FallingSite toAdd = new FallingSite();
             toAdd.siteURL = jsonSite.keys[0];
-            toAdd.value = int.Parse(jsonSite.keys[1]);
-            toAdd.mass = int.Parse(jsonSite.keys[2]);
+            toAdd.value = Random.Range(0, 100);
             downloadedSites.Add(toAdd);
         }
+        */
 
     }
 	// Update is called once per frame
