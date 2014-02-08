@@ -8,6 +8,7 @@ public class UserLoginPrompter : MonoBehaviour {
     public UIInput usernameLabel, passwordLabel;
     public UIWidget loginWidget;
     public SiteDropper dropper;
+    public Timer timer;
 	// Use this for initialization
 	void Start ()
     {
@@ -17,6 +18,8 @@ public class UserLoginPrompter : MonoBehaviour {
         this.username = usernameLabel.value;
         this.password = passwordLabel.value;
         Destroy(loginWidget.gameObject, 0);
+        this.camera.enabled = false;
+        drop();
     }
     void drop()
     {

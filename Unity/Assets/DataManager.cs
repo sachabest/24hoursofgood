@@ -42,6 +42,7 @@ public class DataManager : MonoBehaviour {
                     toAdd.siteURL = line;
                     toAdd.value = Random.Range(0, 100);
                     prefab.rigidbody2D.isKinematic = true;
+                    prefab.rigidbody2D.gravityScale = 0.0f;
                     prefab.transform.position = new Vector2(0, 30);
                     toAdd.collector = collector;
                     downloadedSites.Add(toAdd);
@@ -50,9 +51,6 @@ public class DataManager : MonoBehaviour {
             }
         }
         stream.Close();
-        dropper.shouldDrop = true;
-        Debug.Log(dropper.shouldDrop);
-        dropper.StartCoroutine("Drop");
     }
     public void decodeJSON(string url)
     {
