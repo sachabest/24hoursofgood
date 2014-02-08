@@ -21,4 +21,21 @@ public class FallingSite : MonoBehaviour {
 	void Update () {
 	
 	}
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (transform.parent != null) {
+            ContactPoint2D contact = collision.contacts[0];
+            GameObject other = contact.collider.gameObject;
+            if (other != null)
+            {
+                other.transform.parent = this.transform;
+                this.rigidbody2D.Sleep();
+                other.rigidbody2D.Sleep();
+                //site.transform.rigidbody2D.Sleep();
+                /* Need to also update the collider on this object to include the bounds of
+                 * the recently caught site */
+
+            }
+        }
+    }
 }

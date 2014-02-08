@@ -29,14 +29,15 @@ public class SiteCollector : MonoBehaviour {
         numSites++;
         value += site.value;
     }
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        ContactPoint contact = collision.contacts[0];
-        FallingSite site = contact.otherCollider.gameObject.GetComponent<FallingSite>();
+        ContactPoint2D contact = collision.contacts[0];
+        FallingSite site = contact.collider.gameObject.GetComponent<FallingSite>();
         if (site != null)
         {
             this.addSite(site);
             site.transform.parent = this.gameObject.transform;
+            //site.transform.rigidbody2D.Sleep();
             /* Need to also update the collider on this object to include the bounds of
              * the recently caught site */
 
