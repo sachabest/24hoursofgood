@@ -3,17 +3,32 @@ using System.Collections;
 
 public class FallingSite : MonoBehaviour {
 
-    public float value { get; set; }
-    public float mass { get; set; }
-    public string siteURL { get; set; }
+    public float value;
+    public float mass;
+    public string siteURL;
     public int id;
     public bool dropped;
     public SiteCollector collector;
+    private bool hasBeenOnScreen;
+    private float visibleDuration;
 
 	// Use this for initialization
 	void Start () {
-	    
+        enabled = true;
+        hasBeenOnScreen = false;
 	}
+    void OnBecameVisible()
+    {
+        enabled = true;
+        hasBeenOnScreen = true;
+        visibleDuration = Time.time;
+    }
+    void OnBecameInvisible()
+    {
+        visibleDuration = Time.time - visibleDuration;
+        if (hasBeenOnScreen && visibleDuration > 1)
+            enabled = false;
+    }
     public void changeMass(float newMass)
     {
         mass = newMass;
@@ -22,7 +37,7 @@ public class FallingSite : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (transform.position.y < -20)
-            Destroy(gameObject);
+            DestroyImmediate(gameObject);
 	}
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -30,8 +45,8 @@ public class FallingSite : MonoBehaviour {
             FallingSite other = contact.collider.gameObject.GetComponent<FallingSite>();
             if (other != null)
             {
-                
-                collector.OnCollisionEnter2D(collision);
+                if (hasBeenOnScreen && other.hasBeenOnScreen) 
+                    collector.OnCollisionEnter2D(collision);
                 /*
                 collector.nextSlot.y += 1.5f;
                 other.transform.parent = collector.transform;

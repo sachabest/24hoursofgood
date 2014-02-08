@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 
 public class DataManager : MonoBehaviour {
 
     public const int MASS_MODIFIER = 2;
-    public const int MAX_ENTRIES = 50;
+    public const int MAX_ENTRIES = 25;
     public const string websiteToCheck = "http://google.com";
     public JSONObject downloadedJSON;
     public List<FallingSite> downloadedSites;
@@ -32,11 +33,13 @@ public class DataManager : MonoBehaviour {
                 break;
             if (line.Contains("URL"))
             {
-                string[] split = line.Split(':');
+                string[] split = Regex.Split(line, " : ");
                 if (split.Length > 1)
                 {
                     line = split[1];
                     line = line.Trim();
+                    if (!line.Contains("http"))
+                        continue;
                     GameObject prefab = (GameObject)Instantiate(Resources.Load("FallingSitePrefab"));
                     FallingSite toAdd = prefab.GetComponent<FallingSite>();
                     toAdd.siteURL = line;
