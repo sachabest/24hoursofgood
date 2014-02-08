@@ -4,12 +4,14 @@ using System.IO;
 
 public class DataManager : MonoBehaviour {
 
-    public const int MASS_MODIFIER = 100;
+    public const int MASS_MODIFIER = 2;
+    public const int MAX_ENTRIES = 10;
     public const string websiteToCheck = "http://google.com";
     public JSONObject downloadedJSON;
     public List<FallingSite> downloadedSites;
     private float downloadProgress;
     public bool downloading;
+    public SiteDropper dropper;
 	// Use this for initialization
 	void Start () {
         decodeTXT("Assets/history.txt");
@@ -22,8 +24,11 @@ public class DataManager : MonoBehaviour {
     {
         StreamReader stream = new StreamReader(filename);
         string line;
+        int count = 0;
         while ((line = stream.ReadLine()) != null)
         {
+            if (count > MAX_ENTRIES)
+                break;
             if (line.Contains("URL"))
             {
                 string[] split = line.Split(':');
@@ -31,15 +36,19 @@ public class DataManager : MonoBehaviour {
                 {
                     line = split[1];
                     line = line.Trim();
-                    FallingSite toAdd = (FallingSite) Instantiate(Resources.Load("FallingSitePrefab"));
+                    GameObject prefab = (GameObject)Instantiate(Resources.Load("FallingSitePrefab"));
+                    FallingSite toAdd = prefab.GetComponent<FallingSite>();
                     toAdd.siteURL = line;
                     toAdd.value = Random.Range(0, 100);
-                    toAdd.mass = MASS_MODIFIER + Random.Range(0, 50);
-                    toAdd.transform.position = new Vector2(0, 200);
+                    prefab.rigidbody2D.isKinematic = false;
+                    prefab.transform.position = new Vector2(0, 30);
                     downloadedSites.Add(toAdd);
+                    count++;
                 }
             }
         }
+        stream.Close();
+        dropper.dropFoold();
     }
     public void decodeJSON(string url)
     {
